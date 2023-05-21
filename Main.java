@@ -12,8 +12,10 @@ class Main {
         real.add(1.0d);
         real.add(2.0d);
         real.add(1.6d);
-        model.fit(data, real, 0.1, 1000);
+        model.fit(data, real, 0.1, 10);
 
-        System.out.println(model.getWeights().get(1));
+        for (int i = 0; i < 10; i++) {
+            System.out.println(model.getLogs().get(i));
+        }
     }
 }

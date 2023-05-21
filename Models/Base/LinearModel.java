@@ -43,6 +43,41 @@ public abstract class LinearModel {
         return r/size;
     };
 
+    public abstract ArrayList <Double> sumDifferential(ArrayList <Double> xTrain, ArrayList <Double> error);
+
     public abstract ArrayList <Double> predict(ArrayList <Double> xTest);
-    public abstract void fit(ArrayList <Double> xTrain, ArrayList <Double> yTrain, double learning_rate, int num_epochs);
+
+    public void fit(ArrayList <Double> xTrain, ArrayList <Double> yTrain, double learning_rate, int num_epochs) {
+        try {
+            if (xTrain.size() != yTrain.size()) {
+                throw new Exception("Vetores de tamanhos diferentes, impossível treinar");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        this.logs = new ArrayList<>();
+        ArrayList <Double> prediction = new ArrayList<>();
+        ArrayList <Double> error = new ArrayList<>();
+        ArrayList <Double> errorDifferential = new ArrayList<>();
+        for (int i = 0; i < num_epochs; i++) {
+            prediction = this.predict(xTrain);
+            error = this.subtractArray(yTrain, prediction);
+            this.logs.add(this.computeMSE(yTrain, prediction));
+
+            errorDifferential = this.sumDifferential(xTrain, error);
+
+            for (int j = 0; j < this.weights.size(); j++) {
+                this.weights.set(j, this.weights.get(j) + (learning_rate * errorDifferential.get(j))/(xTrain.size()));
+            }
+        }
+    }
+
+    public ArrayList <Double> getWeights() {
+        return this.weights;
+    }
+
+    public ArrayList <Double> getLogs() {
+        return this.logs;
+    }
 }
