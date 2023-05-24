@@ -5,7 +5,12 @@ Universidade Federal do Ceará / Federal University of Ceará
 [PT] Esse trabalho final visa avaliar os estudantes no paradigma de **Programação Orientada à Objetos**, **padrões de Projeto** e **trabalho em equipe**.
 
 [EN] This work aims to evaluate the students on the **Object Oriented Programming** paradigm, **Design Patterns** and **Team Working**.  
-## Tema / About
+## Linguagem / Language
+---
+[PT] O sistema é feito inteiramente na linguagem de programação Java.
+
+[EN] The system is made entirely in the Java programming language.
+## Tema / Subject
 ---
 [PT] O tema escolhido para esse projeto é:
 > Simulador do problema "Curse of Dimensionality" 
