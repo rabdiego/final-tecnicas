@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Math;
 
 public class Simulator implements ObservableSimulator {
 
@@ -7,7 +8,7 @@ public class Simulator implements ObservableSimulator {
     private int number_of_dimensions;
     private int number_of_points;
     private double mean;
-    private ArrayList <Double> means;
+    private ArrayList <ArrayList <Double>> metrics;
     
     private double euclidianDistance(ArrayList <Double> p_a, ArrayList <Double> p_b) {
         double distance = 0.0d;
@@ -44,19 +45,46 @@ public class Simulator implements ObservableSimulator {
         }
     }
 
-    private double simulate() {
-        double r = 0.0d;
+    private ArrayList <Double> singleSimulate() {
+        double r_mean = 0.0d, r_std = 0.0d;
+
+        double mean, standard, variance, varCoef;
+
         int denominator = (this.number_of_points * (this.number_of_points - 1))/2;
+        
         ArrayList <Double> p_a = new ArrayList<>();
         ArrayList <Double> p_b = new ArrayList<>();
+
+        ArrayList <Double> returnValues;
+
         for (int i = 0; i < this.number_of_points; i++) {
             p_a = this.points.get(i);
             for (int j = i + 1; j < this.number_of_points; j++) {
                 p_b = this.points.get(j);
-                r += this.euclidianDistance(p_a, p_b);
+                r_mean += this.euclidianDistance(p_a, p_b);
             }
         }
-        return r/denominator;
+
+        mean = r_mean/denominator;
+        returnValues.add(mean);
+
+        for (int i = 0; i < this.number_of_points; i++) {
+            p_a = this.points.get(i);
+            for (int j = i + 1; j < this.number_of_points; j++) {
+                p_b = this.points.get(j);
+                r_std += Math.pow((this.euclidianDistance(p_a, p_b) - mean), 2);
+            }
+        }
+
+        variance = r_std/denominator;
+        standard = Math.sqrt(variance);
+        varCoef = standard/mean;
+
+        returnValues.add(variance);
+        returnValues.add(standard);
+        returnValues.add(varCoef);
+
+        return returnValues;
     }
     
     public void simulate(int starting_dimension, int ending_dimension, int step, int number_of_points, char distribution) {
@@ -64,11 +92,11 @@ public class Simulator implements ObservableSimulator {
 
         for (int i = starting_dimension; i <= ending_dimension; i += step) {
             simulator.setNewSimulator(i, number_of_points, distribution);
-            this.means.add(simulator.simulate());
+            this.metrics.add(simulator.singleSimulate());
         }
     }
 
     public ArrayList <Double> getValue() {
-        return this.means;
+        return this.metrics;
     }
 }
