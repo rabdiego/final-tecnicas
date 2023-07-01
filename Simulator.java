@@ -1,13 +1,11 @@
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Math;
 
 public class Simulator implements ObservableSimulator {
 
     private ArrayList <ArrayList <Double>> points;
     private int number_of_dimensions;
     private int number_of_points;
-    private double mean;
     private ArrayList <ArrayList <Double>> metrics;
     
     private double euclidianDistance(ArrayList <Double> p_a, ArrayList <Double> p_b) {
@@ -55,7 +53,7 @@ public class Simulator implements ObservableSimulator {
         ArrayList <Double> p_a = new ArrayList<>();
         ArrayList <Double> p_b = new ArrayList<>();
 
-        ArrayList <Double> returnValues;
+        ArrayList <Double> returnValues = new ArrayList<>();
 
         for (int i = 0; i < this.number_of_points; i++) {
             p_a = this.points.get(i);
@@ -89,6 +87,7 @@ public class Simulator implements ObservableSimulator {
     
     public void simulate(int starting_dimension, int ending_dimension, int step, int number_of_points, char distribution) {
         Simulator simulator = new Simulator();
+        this.metrics = new ArrayList<>();
 
         for (int i = starting_dimension; i <= ending_dimension; i += step) {
             simulator.setNewSimulator(i, number_of_points, distribution);
@@ -96,7 +95,7 @@ public class Simulator implements ObservableSimulator {
         }
     }
 
-    public ArrayList <Double> getValue() {
+    public ArrayList <ArrayList <Double>> getValue() {
         return this.metrics;
     }
 }
