@@ -1,6 +1,8 @@
 public class Controller {
 
     private int starting_dimension, ending_dimension, step, number_of_points;
+    private char distribution;
+    private Simulator simulator = new Simulator();
 
     private void setStartingDimension(int starting_dimension) {
         this.starting_dimension = starting_dimension;
@@ -33,32 +35,42 @@ public class Controller {
     private int getNumberOfPoints() {
         return number_of_points;
     }
+    private void setDistribution(int distribution) {
+        if (distribution == 0){
+            this.distribution = 'u';
+        } else {
+            this.distribution = 'n';
+        }
+    }
+    private char getDistribution() {
+        return distribution;
+    }
 
     public boolean processarValoresInput(String[] valor) {
+        setDistribution(Integer.parseInt(valor[4]));
+        
         for (int i = 0; i < 4; i++) {
             if (i == 0) {
                 setStartingDimension(Integer.parseInt(valor[i]));
-                if (getStartingDimension() < 0) {
+                if (getStartingDimension() < 0)
                     return AlgoErrado(1);
-                }
             } else if (i == 1) {
                 setEndingDimension(Integer.parseInt(valor[i]));
-                if (getEndingDimension() < getStartingDimension()) {
+                if (getEndingDimension() < getStartingDimension())
                     return AlgoErrado(2);
-                }
             } else if (i == 2) {
                 setStep(Integer.parseInt(valor[i]));
-                if (getStep() < 1) {
+                if (getStep() < 1)
                     return AlgoErrado(1);
-                }
             } else {
                 setNumberOfPoints(Integer.parseInt(valor[i]));
-                if (getNumberOfPoints() < 0) {
+                if (getNumberOfPoints() < 0)
                     return AlgoErrado(1);
-                }
             }
         }
+        simulator.simulate(getStartingDimension(), getEndingDimension(), getStep(), getNumberOfPoints(), getDistribution());
         return true;
+
     }
 
     private boolean AlgoErrado(int TypeOfError) {
