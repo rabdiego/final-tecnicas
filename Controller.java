@@ -34,40 +34,42 @@ public class Controller {
         return number_of_points;
     }
 
-    public void processarValores(String[] valor) {
+    public boolean processarValoresInput(String[] valor) {
         for (int i = 0; i < 4; i++) {
             if (i == 0) {
                 setStartingDimension(Integer.parseInt(valor[i]));
-                if (getStartingDimension() > 0) {
-                    AlgoErrado(1);
+                if (getStartingDimension() < 0) {
+                    return AlgoErrado(1);
                 }
             } else if (i == 1) {
                 setEndingDimension(Integer.parseInt(valor[i]));
                 if (getEndingDimension() < getStartingDimension()) {
-                    AlgoErrado(2);
+                    return AlgoErrado(2);
                 }
             } else if (i == 2) {
                 setStep(Integer.parseInt(valor[i]));
-                if (getStep() >= 1) {
-                    AlgoErrado(1);
+                if (getStep() < 1) {
+                    return AlgoErrado(1);
                 }
             } else {
                 setNumberOfPoints(Integer.parseInt(valor[i]));
-                if (getNumberOfPoints() > 0) {
-                    AlgoErrado(1);
+                if (getNumberOfPoints() < 0) {
+                    return AlgoErrado(1);
                 }
             }
         }
+        return true;
     }
 
-    private void AlgoErrado(int TypeOfError) {
+    private boolean AlgoErrado(int TypeOfError) {
         if (TypeOfError == 1) {
             System.out.println("Valor inferior ao mínimo, tente novamente");
-            System.exit(0);
+
         } else if (TypeOfError == 2) {
             System.out.println("Ending_dimension menor que o valor do Starting,tente novamente.");
-            System.exit(0);
+
         }
+        return false;
     }
 
 }
