@@ -122,7 +122,7 @@ public class App {
                 System.out.println(values[0]); // inicio
                 System.out.println(values[1]); // fim
                 System.out.println(values[2]); // passo
-                System.out.println(values[3]); // pontos
+                System.out.println(values[3]); // pontos 
                 System.out.println(values[4]); // Distribuição
 
                 // todo Classe do Gabrigas
