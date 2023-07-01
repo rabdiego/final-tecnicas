@@ -2,39 +2,39 @@ public class Controller {
 
     private int starting_dimension, ending_dimension, step, number_of_points;
 
-    void setStartingDimension(int starting_dimension) {
+    private void setStartingDimension(int starting_dimension) {
         this.starting_dimension = starting_dimension;
     }
 
-    int getStartingDimension() {
+    private int getStartingDimension() {
         return starting_dimension;
     }
 
-    void setEndingDimension(int ending_dimension) {
+    private void setEndingDimension(int ending_dimension) {
         this.ending_dimension = ending_dimension;
     }
 
-    int getEndingDimension() {
+    private int getEndingDimension() {
         return ending_dimension;
     }
 
-    void setStep(int step) {
+    private void setStep(int step) {
         this.step = step;
     }
 
-    int getStep() {
+    private int getStep() {
         return step;
     }
 
-    void setNumberOfPoints(int number_of_points) {
+    private void setNumberOfPoints(int number_of_points) {
         this.number_of_points = number_of_points;
     }
 
-    int getNumberOfPoints() {
+    private int getNumberOfPoints() {
         return number_of_points;
     }
 
-    void processarValores(String[] valor) {
+    public void processarValores(String[] valor) {
         for (int i = 0; i < 4; i++) {
             if (i == 0) {
                 setStartingDimension(Integer.parseInt(valor[i]));
@@ -60,7 +60,7 @@ public class Controller {
         }
     }
 
-    void AlgoErrado(int TypeOfError) {
+    private void AlgoErrado(int TypeOfError) {
         if (TypeOfError == 1) {
             System.out.println("Valor inferior ao mínimo, tente novamente");
             System.exit(0);
