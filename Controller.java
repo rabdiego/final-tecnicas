@@ -68,6 +68,8 @@ public class Controller {
                     return somethingWrong(1);
             }
         }
+
+        // rodando o troço do Daiego
         simulator.simulate(getStartingDimension(), getEndingDimension(), getStep(), getNumberOfPoints(), getDistribution());
         return true;
 
