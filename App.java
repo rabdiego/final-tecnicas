@@ -126,7 +126,7 @@ public class App {
                 System.out.println(values[4]); // Distribuição
 
                 // todo Classe do Gabrigas
-                if (gabrigas.processarValoresInput(values)) {
+                if (gabrigas.processValuesInput(values)) {
                     System.out.println("deu bom");
                     // classe do Daiego
                 }

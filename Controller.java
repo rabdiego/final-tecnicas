@@ -46,26 +46,26 @@ public class Controller {
         return distribution;
     }
 
-    public boolean processarValoresInput(String[] valor) {
+    public boolean processValuesInput(String[] valor) {
         setDistribution(Integer.parseInt(valor[4]));
         
         for (int i = 0; i < 4; i++) {
             if (i == 0) {
                 setStartingDimension(Integer.parseInt(valor[i]));
                 if (getStartingDimension() < 0)
-                    return AlgoErrado(1);
+                    return somethingWrong(1);
             } else if (i == 1) {
                 setEndingDimension(Integer.parseInt(valor[i]));
                 if (getEndingDimension() < getStartingDimension())
-                    return AlgoErrado(2);
+                    return somethingWrong(2);
             } else if (i == 2) {
                 setStep(Integer.parseInt(valor[i]));
                 if (getStep() < 1)
-                    return AlgoErrado(1);
+                    return somethingWrong(1);
             } else {
                 setNumberOfPoints(Integer.parseInt(valor[i]));
                 if (getNumberOfPoints() < 0)
-                    return AlgoErrado(1);
+                    return somethingWrong(1);
             }
         }
         simulator.simulate(getStartingDimension(), getEndingDimension(), getStep(), getNumberOfPoints(), getDistribution());
@@ -73,7 +73,7 @@ public class Controller {
 
     }
 
-    private boolean AlgoErrado(int TypeOfError) {
+    private boolean somethingWrong(int TypeOfError) {
         if (TypeOfError == 1) {
             System.out.println("Valor inferior ao mínimo, tente novamente");
 
