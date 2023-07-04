@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public interface ObservableSimulator {
     public void simulate(int starting_dimension, int ending_dimension, int step, int number_of_points, char distribution);
-    public ArrayList <Double> getValue();
+    public ArrayList <ArrayList <Double>> getValue();
     public void addObserver(ObservableSimulator observer);
     public void removeObserver(ObservableSimulator observer);
 }

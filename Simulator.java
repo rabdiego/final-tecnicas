@@ -124,4 +124,14 @@ public class Simulator implements ObservableSimulator {
             observer.update(this); 
         }
     }
+    @Override
+    public void addObserver(ObservableSimulator observer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'addObserver'");
+    }
+    @Override
+    public void removeObserver(ObservableSimulator observer) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'removeObserver'");
+    }
 }

@@ -1,4 +1,4 @@
-public class Controller {
+public class Controller implements ControllerInferface {
 
     private int starting_dimension, ending_dimension, step, number_of_points;
     private char distribution;
@@ -75,7 +75,7 @@ public class Controller {
 
     }
 
-    private boolean somethingWrong(int TypeOfError) {
+    public boolean somethingWrong(int TypeOfError) {
         if (TypeOfError == 1) {
             System.out.println("Valor inferior ao mínimo, tente novamente");
 
