@@ -4,51 +4,53 @@ public class Controller implements ControllerInferface {
     private char distribution;
     private Simulator simulator = new Simulator();
 
-    private void setStartingDimension(int starting_dimension) {
+    public void setStartingDimension(int starting_dimension) {
         this.starting_dimension = starting_dimension;
     }
 
-    private int getStartingDimension() {
+    public int getStartingDimension() {
         return starting_dimension;
     }
 
-    private void setEndingDimension(int ending_dimension) {
+    public void setEndingDimension(int ending_dimension) {
         this.ending_dimension = ending_dimension;
     }
 
-    private int getEndingDimension() {
+    public int getEndingDimension() {
         return ending_dimension;
     }
 
-    private void setStep(int step) {
+    public void setStep(int step) {
         this.step = step;
     }
 
-    private int getStep() {
+    public int getStep() {
         return step;
     }
 
-    private void setNumberOfPoints(int number_of_points) {
+    public void setNumberOfPoints(int number_of_points) {
         this.number_of_points = number_of_points;
     }
 
-    private int getNumberOfPoints() {
+    public int getNumberOfPoints() {
         return number_of_points;
     }
-    private void setDistribution(int distribution) {
-        if (distribution == 0){
+
+    public void setDistribution(int distribution) {
+        if (distribution == 0) {
             this.distribution = 'u';
         } else {
             this.distribution = 'n';
         }
     }
-    private char getDistribution() {
+
+    public char getDistribution() {
         return distribution;
     }
 
     public boolean processValuesInput(String[] valor) {
         setDistribution(Integer.parseInt(valor[4]));
-        
+
         for (int i = 0; i < 4; i++) {
             if (i == 0) {
                 setStartingDimension(Integer.parseInt(valor[i]));
@@ -70,7 +72,8 @@ public class Controller implements ControllerInferface {
         }
 
         // rodando o troço do Daiego
-        simulator.simulate(getStartingDimension(), getEndingDimension(), getStep(), getNumberOfPoints(), getDistribution());
+        simulator.simulate(getStartingDimension(), getEndingDimension(), getStep(), getNumberOfPoints(),
+                getDistribution());
         return true;
 
     }
