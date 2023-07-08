@@ -1,54 +1,79 @@
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
 
-
-
-
-
 public class Gui{
-    Controller controller;
-    Simulator simulator;
-    ChartBuilder chartBuilder;
-    JPanel chartpanel;
+    /** Classe da interface gráfica
+     * 
+     * 
+     * @author Ramon
+     */
 
+    // Controller, Model e Viewer
+    private Controller controller;
+    private Simulator simulator;
+    private ChartBuilder chartBuilder;
+    private JPanel chartpanel;
+
+    // Métodos para adicionar os membros do MVC
     public void addController(Controller controller){
+        /** Método para adicionar o controller à classe
+         * 
+         * @param controller Controller - Controller
+         * 
+         * @author Tobias
+         */
         this.controller = controller;
     }
+
     public void addSimulator(Simulator simulator){
+        /** Método para adicionar o model à classe
+         * 
+         * @param simulator Simulator - Model
+         * 
+         * @author Tobias
+         */
         this.simulator = simulator;
     }   
+
     public void addChartBuilder(ChartBuilder chartBuilder){
+        /** Método para adicionar o viewer à classe
+         * 
+         * @param chartBuilder ChartBuilder - Viewer
+         * 
+         * @author Tobias
+         */
         this.chartBuilder = chartBuilder;
     }   
 
 
-    
+    // Método principal
     public void show(){
+        /** Método para mostrar a interface gráfica do sistema
+         * 
+         * @author Ramon
+         */
 
+        // Linkando o controller com o viewer
         controller.addChartBuilder(this.chartBuilder);
         controller.addSimulator(this.simulator);
 
-
+        // Variável que vai receber os inputs brutos
         String[] values = new String[5];
-        // Container Frame
+        
+        // Frame principal
         Frame f = new Frame("Simulador");
         f.setSize(1000, 600);
         f.setBackground(null);
-        // f.setForeground(Color.red);
         f.setResizable(true);
 
         // Definindo layout manager
         f.setLayout(new BorderLayout());
 
         // Associar tratador de eventos com a janela
-
-
-
         f.addWindowListener(new Tratador());
 
-        // >>Components Panels
+        // Painéis
         // Container Painel
         Panel pSouth = new Panel(); // layout manager dele é o flow layout
         pSouth.setBackground(Color.LIGHT_GRAY);
@@ -64,25 +89,24 @@ public class Gui{
         pSouthE.setLayout(new FlowLayout(0, 5, 10));
         pSouthE.setBackground(Color.LIGHT_GRAY);
 
+        // Panel que contém o título do sistema
         Panel pNorth = new Panel();
         pNorth.setBackground(Color.LIGHT_GRAY);
         pNorth.setLayout(new FlowLayout(0, 2, 10));
 
+        // Panels da Imagem
         Panel pWest = new Panel();
         pWest.setBackground(Color.LIGHT_GRAY);
         pWest.setLayout(new FlowLayout(0, 70, 10));
-
         Panel pEast = new Panel();
+        pEast.setLayout(new FlowLayout(0, 70, 100));
         pEast.setBackground(Color.LIGHT_GRAY);
 
-        // Labels>
+        // Labels
         Label none01 = new Label("Distribuição:");
-        // none01.setFont(new Font("MonoSpaced", Font.PLAIN, 14));
 
         Label algo = new Label("Simulador da Maldição da Redução da Dimensionalidade:");
         algo.setFont(new Font("MonoSpaced", Font.BOLD, 16));
-
-
 
         Label input01Label = new Label("Inicio:", Label.CENTER);
         input01Label.setBounds(100, 100, 160, 20);
@@ -98,9 +122,6 @@ public class Gui{
         
         Label input05Label = new Label("", Label.CENTER);
         input05Label.setBounds(100, 100, 160, 20);
-
-        // Label input04Label = new Label("Input 04:", Label.CENTER);
-        // input02Label.setBounds(100,100,160,20);
 
         // Text Field Input
         TextField input01 = new TextField(null, 3);
@@ -129,7 +150,6 @@ public class Gui{
         list.add("Uniforme");
         list.add("Normal");
     
-        
         // Choice
         Choice choice = new Choice();
         choice.add("Uniforme");
@@ -149,17 +169,19 @@ public class Gui{
         pSouthE.add(ok);
         pSouth.add("West", pSouthW);
         pSouth.add("East", pSouthE);
-        
-  
         pNorth.add(algo);
+
+        JLabel image = new JLabel(new ImageIcon("/home/diego/documents/20231/trabalhos/final-tecnicas/Final/src/images/ufc_logo_pequeno-4.png"));
+        pEast.add("Center", image);
+        pEast.revalidate();
+        pEast.repaint();
 
         f.add("South", pSouth);
         f.add("North", pNorth);
         f.add("West", pWest);
-        f.add("East", pEast);
+        f.add("West", pEast);
 
-        
-
+        // Checando se o objeto é nulo (quando o usuário inicializa o sistema)
         if(chartpanel != null){
             f.add("Center", chartpanel);
         }
@@ -168,9 +190,6 @@ public class Gui{
 
         f.setVisible(true);
         
-
-
-      
         // Evento botao 'OK'
         ok.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -180,28 +199,21 @@ public class Gui{
                 values[2] = input03.getText();
                 values[3] = input04.getText();
                 values[4] = Integer.toString(choice.getSelectedIndex());
-                // values[4] = 1 normal; 0 uniforme
-                // DEBUG
 
-
-                
-
-                
                 if (controller.processValuesInput(values)) {
-                    
-                
-                    
-                    // classe do Daiego  
+                    // Checando se o objeto não é nulo (atualizar)
                     if(chartpanel != null){
                         f.remove(chartpanel);
-
                     }
+
+                    // Cria os gráficos e atualiza a tela
                     chartpanel = chartBuilder.createChartPanel();
                     chartBuilder.update(simulator);
                     f.remove(pSouth);
                     f.remove(pWest);
                     f.remove(pEast);
 
+                    // Mensagem de erro (inicialmente vazia)
                     input05Label.setText("");
 
                     pSouthW.add(input01Label);
@@ -218,51 +230,41 @@ public class Gui{
                     pSouthE.add(ok);
                     pSouth.add("West", pSouthW);
                     pSouth.add("East", pSouthE);
-
                     pNorth.add(algo);
 
                     f.add("South", pSouth);
                     f.add("North", pNorth);
                     f.add("West", pWest);
-                    f.add("East", pEast);
-                    
+                    f.add("West", pEast);
 
                     if(chartpanel != null){
                         f.add("Center", chartpanel);
                     }
                     
-                    
-
                     f.setVisible(true);
 
                 }
                 else{
-                    f.remove(chartpanel);
+                    // Ocorreu um erro
                     input05Label.setText("ERRO, TENTE NOVAMENTE");
                 }
                 
             }
         });
-
-
-      
-        
     }
-    
-
 }
 
-
-
-
-
-
-
-
-
-
 class Tratador implements WindowListener {
+    /** Classe para tratar os eventos
+     * 
+     * @author Tobias
+     * 
+     */
     public void windowClosing(WindowEvent we) {
+        /** Método para ver se a janela fechou
+         * 
+         * @author Tobias
+         */
         System.exit(0);
     }
 
