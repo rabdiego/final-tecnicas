@@ -1,0 +1,65 @@
+Algoritmo:
+
+d <- vetor [0...n-1] de inteiros
+anc <- vetor [0...n-1] de inteiros
+
+Para v E V
+    d[v] <- infinito
+    anc[v] <- -1
+
+H <- Heap de Minimo para até n pares (u,p),
+     indexados por u [0...n-1] 
+
+H.inserir(o,0)
+
+Enquanto não H.vazio()
+    (u,p) <- H.extrair_minimo()
+    d[u] <- p
+
+    Para v E N+(u)
+        peso_via_u = p + w(u,v)
+
+        Se d[v] = infinito
+            H.inserir(v,peso_via_u)
+            anc[v] <- u
+
+        Senão
+            Se peso_via_u < d[v]
+                H.atualizar_peso(v,peso_via_u)
+                anc[v] <- u
+retorne 
+
+Classe Heap:
+    n: inteiro
+    v_heap: vetor [0...n-1] de registro par (u: inteiro, p: real)
+    pos: vetor [0...n-1] de inteiros
+    ultimo: inteiro global; \\inicializado como zero
+
+
+    Inserir(u: inteiro, p: real)
+        v_heap[ultimo] <- (u,p)
+        ++ultimo
+        Subir(v_heap, ultimo, pos)
+
+    Subir(H: vetor de registro par, i: inteiro, pos)
+        pos[H[i]] <- i
+        Enquanto (i > 0) e (H[pai(i)].p > H[i].p) \\Enquanto o peso do H[pai(i)] for maior que o de H[i]
+
+            // H[pai(i)] troca de posição com H[i]
+            aux <- H[pai(i)]  // aux recebe peso o par (u,p) em H[pai(i)]
+            H[pai(i)] <- H[i]   // H[pai(i)] recebe o par (u,p) em H[i]
+            H[i] <- aux 
+
+            //Atualizar vetor de posição
+            pos[H[i].u] <- i        // A posição do vertice que estava em H[pai(i)] é alterada para a posição em que H[i] estava
+            i <- pai(i)             // i recebe a posição pai de i
+            pos[H[i].u] <- i        // A posição do vertice que estava em H[i] é alterada para a posição em que H[pai(i)] estava
+
+
+            
+
+
+
+
+
+
