@@ -105,7 +105,7 @@ public class Gui{
         // Labels
         Label none01 = new Label("Distribuição:");
 
-        Label algo = new Label("Simulador da Maldição da Redução da Dimensionalidade:");
+        Label algo = new Label("Simulador da Maldição da Redução da Dimensionalidade");
         algo.setFont(new Font("MonoSpaced", Font.BOLD, 16));
 
         Label input01Label = new Label("Inicio:", Label.CENTER);
@@ -171,6 +171,7 @@ public class Gui{
         pSouth.add("East", pSouthE);
         pNorth.add(algo);
 
+        //! Imagem (mudar para o path do usuário)
         JLabel image = new JLabel(new ImageIcon("/home/diego/documents/20231/trabalhos/final-tecnicas/Final/src/images/ufc_logo_pequeno-4.png"));
         pEast.add("Center", image);
         pEast.revalidate();
