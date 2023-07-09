@@ -98,9 +98,9 @@ public class Gui{
         Panel pWest = new Panel();
         pWest.setBackground(Color.LIGHT_GRAY);
         pWest.setLayout(new FlowLayout(0, 70, 10));
-        Panel pEast = new Panel();
-        pEast.setLayout(new FlowLayout(0, 70, 100));
-        pEast.setBackground(Color.LIGHT_GRAY);
+        Panel pImage = new Panel();
+        pImage.setLayout(new FlowLayout(0, 70, 100));
+        pImage.setBackground(Color.LIGHT_GRAY);
 
         // Labels
         Label none01 = new Label("Distribuição:");
@@ -155,6 +155,7 @@ public class Gui{
         choice.add("Uniforme");
         choice.add("Normal");
         
+        // Adição dos inputs
         pSouthW.add(input01Label);
         pSouthW.add(input01);
         pSouthW.add(input02Label);
@@ -173,14 +174,14 @@ public class Gui{
 
         // Imagem da UFC
         JLabel image = new JLabel(new ImageIcon("./src/images/ufc_logo_pequeno-4.png"));
-        pEast.add("Center", image);
-        pEast.revalidate();
-        pEast.repaint();
+        pImage.add("Center", image);
+        pImage.revalidate();
+        pImage.repaint();
 
         f.add("South", pSouth);
         f.add("North", pNorth);
         f.add("West", pWest);
-        f.add("West", pEast);
+        f.add("West", pImage);
 
         // Checando se o objeto é nulo (quando o usuário inicializa o sistema)
         if(chartpanel != null){
@@ -212,11 +213,12 @@ public class Gui{
                     chartBuilder.update(simulator);
                     f.remove(pSouth);
                     f.remove(pWest);
-                    f.remove(pEast);
+                    f.remove(pImage);
 
                     // Mensagem de erro (inicialmente vazia)
                     input05Label.setText("");
 
+                    // Adição dos inputs
                     pSouthW.add(input01Label);
                     pSouthW.add(input01);
                     pSouthW.add(input02Label);
@@ -236,7 +238,7 @@ public class Gui{
                     f.add("South", pSouth);
                     f.add("North", pNorth);
                     f.add("West", pWest);
-                    f.add("West", pEast);
+                    f.add("West", pImage);
 
                     if(chartpanel != null){
                         f.add("Center", chartpanel);
