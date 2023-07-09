@@ -171,8 +171,8 @@ public class Gui{
         pSouth.add("East", pSouthE);
         pNorth.add(algo);
 
-        //! Imagem (mudar para o path do usuário)
-        JLabel image = new JLabel(new ImageIcon("/home/diego/documents/20231/trabalhos/final-tecnicas/Final/src/images/ufc_logo_pequeno-4.png"));
+        // Imagem da UFC
+        JLabel image = new JLabel(new ImageIcon("./src/images/ufc_logo_pequeno-4.png"));
         pEast.add("Center", image);
         pEast.revalidate();
         pEast.repaint();
@@ -248,6 +248,7 @@ public class Gui{
                 else{
                     // Ocorreu um erro
                     input05Label.setText("ERRO, TENTE NOVAMENTE");
+                    input05Label.setForeground(Color.red);
                 }
                 
             }
