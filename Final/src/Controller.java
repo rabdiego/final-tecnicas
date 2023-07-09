@@ -149,24 +149,45 @@ public class Controller implements ControllerInferface {
         setDistribution(Integer.parseInt(valor[4]));
 
         // Checagem de cada variável
+        // Checamos em cada se a conversão para o tipo especificado deu certo
         for (int i = 0; i < 4; i++) {
             if (i == 0) {
-                setStartingDimension(Integer.parseInt(valor[i]));
+                try {
+                    setStartingDimension(Integer.parseInt(valor[i]));
+                } catch (Exception e) {
+                    System.out.println("Valor inválido");
+                    return false;
+                }
                 // Dimensão incial não pode ser negativa
                 if (getStartingDimension() < 0)
                     return somethingWrong(1);
             } else if (i == 1) {
-                setEndingDimension(Integer.parseInt(valor[i]));
+                try {
+                    setEndingDimension(Integer.parseInt(valor[i]));
+                } catch (Exception e) {
+                    System.out.println("Valor inválido");
+                    return false;
+                }
                 // Dimensão final tem que ser maior que a dimensão inicial
                 if (getEndingDimension() < getStartingDimension())
                     return somethingWrong(2);
             } else if (i == 2) {
-                setStep(Integer.parseInt(valor[i]));
+                try {
+                    setStep(Integer.parseInt(valor[i]));
+                } catch (Exception e) {
+                    System.out.println("Valor inválido");
+                    return false;
+                }
                 // Passo tem que ser maior que a diferença entre a dimensão final e inicial
                 if ((getStep() < 1) || (getStep() > (getEndingDimension() - getStartingDimension())))
                     return somethingWrong(1);
             } else {
-                setNumberOfPoints(Integer.parseInt(valor[i]));
+                try {
+                    setNumberOfPoints(Integer.parseInt(valor[i]));
+                } catch (Exception e) {
+                    System.out.println("Valor inválido");
+                    return false;
+                }
                 // Número de pontos não pode ser negativo
                 if (getNumberOfPoints() < 0)
                     return somethingWrong(1);
@@ -198,7 +219,7 @@ public class Controller implements ControllerInferface {
 
         // Dimensão final maior que a inicial
         } else if (typeOfError == 2) {
-            System.out.println("Ending_dimension menor que o valor do Starting,tente novamente.");
+            System.out.println("ending_dimension menor que o valor da starting_dimension,tente novamente.");
         }
 
         return false;

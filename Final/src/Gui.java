@@ -105,7 +105,7 @@ public class Gui{
         // Labels
         Label none01 = new Label("Distribuição:");
 
-        Label algo = new Label("Simulador da Maldição da Redução da Dimensionalidade");
+        Label algo = new Label("Simulador da Maldição da Dimensionalidade");
         algo.setFont(new Font("MonoSpaced", Font.BOLD, 16));
 
         Label input01Label = new Label("Inicio:", Label.CENTER);
